@@ -3,8 +3,8 @@ import sys
 
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
-from release.main_ui import Ui_MainWindow
-from release.addEditCoffeeForm import Ui_MainForm
+from main_ui import Ui_MainWindow
+from addEditCoffeeForm import Ui_MainForm
 
 ID = None
 
