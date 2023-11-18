@@ -1,18 +1,18 @@
 import sqlite3
 import sys
 
-from PyQt5 import uic
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
-from addEditCoffeeForm import Ui_MainWindow
+from release.main_ui import Ui_MainWindow
+from release.addEditCoffeeForm import Ui_MainForm
 
 ID = None
 
-class CoffeeSir(QMainWindow):
+class CoffeeSir(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('main.ui', self)
-        self.connection = sqlite3.connect("coffee.sqlite")
+        self.setupUi(self)
+        self.connection = sqlite3.connect("data/coffee.sqlite")
         self.select_data()
         self.addButton.clicked.connect(self.addNewCoffee)
         self.editButton.clicked.connect(self.editCoffee)
@@ -45,12 +45,12 @@ class CoffeeSir(QMainWindow):
         self.close()
 
 
-class CreateForm(QMainWindow, Ui_MainWindow):
+class CreateForm(QMainWindow, Ui_MainForm):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
         self.pushButton.setText('Добавить')
-        self.connection = sqlite3.connect("coffee.sqlite")
+        self.connection = sqlite3.connect("data/coffee.sqlite")
         self.pushButton.clicked.connect(self.save)
 
     def save(self):
@@ -66,11 +66,11 @@ class CreateForm(QMainWindow, Ui_MainWindow):
         self.close()
 
 
-class EditForm(QMainWindow, Ui_MainWindow):
+class EditForm(QMainWindow, Ui_MainForm):
     def __init__(self, *args):
         super().__init__()
         self.setupUi(self)
-        self.connection = sqlite3.connect("coffee.sqlite")
+        self.connection = sqlite3.connect("data/coffee.sqlite")
         self.pushButton.clicked.connect(self.save)
         self.id = list(args)[0]
         query = f'SELECT * FROM Coffees WHERE id={self.id}'
